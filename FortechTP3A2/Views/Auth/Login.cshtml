@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/js/bootstrap.min.js"/>
+</head>
+<body>
+<section class="vh-100">
+    <div class="container-fluid h-custom">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-md-9 col-lg-6 col-xl-5">
+                <img src="https://blog.arkmeds.com/wp-content/uploads/2019/10/A-import%C3%A2ncia-da-Manuten%C3%A7%C3%A3o-Preventiva-em-Equipamentos-hospitalares-%E2%80%93-e-o-Risco-de-n%C3%A3o-Cumpri-la-768x729.png"
+                     class="img-fluid" alt="Sample image">
+            </div>
+            <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+                <form asp-action="VerificarLogin">
+
+                    <h3>Acesso a plataforma</h3>
+
+                    @if (Html.ValidationMessage("Validacao") == null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Validação falhou!</strong> @Html.ValidationMessage("Validacao")
+                        </div>
+                    }
+
+                    <div class="form-outline mb-4">
+                        <input type="email" id="login" name="email" class="form-control form-control-lg"
+                               placeholder="Informe um email válido" required="required"/>
+                        <label class="form-label" for="login">Email</label>
+                    </div>
+
+                    <div class="form-outline mb-3">
+                        <input type="password" id="senha" name="senha" class="form-control form-control-lg"
+                               placeholder="Informe uma senha" required="required"/>
+                        <label class="form-label" for="senha">Senha</label>
+                    </div>
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">
+                            Login
+                        </button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">
+                            Não pussui uma conta?
+
+                            <a class="link-info" asp-controller="Auth" asp-action="Cadastro">Cadastrar</a>
+                        </p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

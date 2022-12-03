@@ -37,4 +37,16 @@
     <Content Remove="Views\Shared\css\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Pages\Dashboard\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Views\Dashboard\Index.cshtml" />
+  </ItemGroup>
+
 </Project>
