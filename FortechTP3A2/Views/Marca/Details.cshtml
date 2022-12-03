@@ -1,0 +1,23 @@
+﻿@model FortechTP3A2.Models.Marca
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h3>Detalhes de Marca</h3>
+
+<div>
+    <hr/> 
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Voltar para a listagem</a>
+    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model?.Id">Editar</a>
+</div>

@@ -20,4 +20,21 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\style.css" />
+    <None Remove="Views\Shared\css\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Shared\css\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Views\Shared\css\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\css\**" />
+  </ItemGroup>
+
 </Project>
