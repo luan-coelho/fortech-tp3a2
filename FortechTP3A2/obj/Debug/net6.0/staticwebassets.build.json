@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "rfO9pSz8eqrsjy58Jlmqh/kc9tDziOrI4hu9/ObwQnA=",
+  "Hash": "tisz82KYCYLosDMN+Vp2CFwX57+VKgUzvZ6PaVkXASc=",
   "Source": "FortechTP3A2",
   "BasePath": "_content/FortechTP3A2",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Luan\\Development\\Workspace Study\\FortechTP3A2\\FortechTP3A2\\wwwroot\\js\\gaintime.br-validator.min.js",
+      "SourceId": "FortechTP3A2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Luan\\Development\\Workspace Study\\FortechTP3A2\\FortechTP3A2\\wwwroot\\",
+      "BasePath": "_content/FortechTP3A2",
+      "RelativePath": "js/gaintime.br-validator.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\gaintime.br-validator.min.js"
     },
     {
       "Identity": "C:\\Users\\Luan\\Development\\Workspace Study\\FortechTP3A2\\FortechTP3A2\\wwwroot\\js\\site.js",

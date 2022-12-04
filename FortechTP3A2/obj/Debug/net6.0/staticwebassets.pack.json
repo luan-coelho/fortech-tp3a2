@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Luan\\Development\\Workspace Study\\FortechTP3A2\\FortechTP3A2\\wwwroot\\js\\gaintime.br-validator.min.js",
+      "PackagePath": "staticwebassets\\js\\gaintime.br-validator.min.js"
+    },
+    {
       "Id": "C:\\Users\\Luan\\Development\\Workspace Study\\FortechTP3A2\\FortechTP3A2\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

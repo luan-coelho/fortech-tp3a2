@@ -1,12 +1,15 @@
 ﻿using FortechTP3A2.Data;
 using FortechTP3A2.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using System.Net.NetworkInformation;
 
 namespace FortechTP3A2.Controllers;
 
 public class AuthController : Controller
 {
     private readonly FortechContext _context;
+ 
 
     public AuthController(FortechContext context)
     {
@@ -24,10 +27,12 @@ public class AuthController : Controller
 
         if (usuario != null)
         {
+            HttpContext.Session.SetInt32("id_usuario", usuario.Id);
+            HttpContext.Session.SetString("nome_usuario", usuario.Nome);
             return RedirectToAction("Index", "Dashboard");
         }
 
-        ViewData["Message"] = "Usuário ou senha inválidos";
+        ModelState.AddModelError("Message", "Usuário ou senha inválidos");
 
         return RedirectToAction("Login", "Auth");
     }
@@ -51,8 +56,22 @@ public class AuthController : Controller
         return RedirectToAction(nameof(Login));
     }
 
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Remove("id_usuario");
+        HttpContext.Session.Remove("nome_usuario");
+
+        return RedirectToAction("Login", "Auth");
+    }
+
     private Usuario VerificarCrendenciais(string email, string senha)
     {
         return _context.Usuario.FirstOrDefault(x => x.Email == email && x.Senha == senha);
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
