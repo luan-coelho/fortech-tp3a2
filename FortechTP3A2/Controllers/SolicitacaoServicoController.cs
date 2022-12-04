@@ -51,34 +51,39 @@ namespace FortechTP3A2.Controllers
         public IActionResult Create()
         {
             ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Nome");
-            ViewData["TiposServico"] = new SelectList(_context.TipoServico, "Id", "Descricao", "this");
+            ViewData["Eletronicos"] = new SelectList(_context.Eletronico, "Id", "Nome");
+            ViewData["TiposServico"] = new SelectList(_context.TipoServico, "Id", "Descricao");
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
             [Bind("Id,Nome,Detalhes,Valor,UsuarioId,TiposServico")]
-            SolicitacaoServico solicitacaoServico)
+            SolicitacaoServico solicitacaoServicoRequest)
         {
-            StringValues tipoServicoRequest = Request.Form["TiposServico"];
+            StringValues listaIdTipoServico = Request.Form["TiposServico"];
 
-            if (tipoServicoRequest.Count > 0)
+            foreach (var tipoServicoId in listaIdTipoServico)
             {
-                int tipoServicoId = int.Parse(tipoServicoRequest[0]);
-                TipoServico tipoServico = _context.TipoServico.FirstOrDefault(t => t.Id == tipoServicoId);
-                solicitacaoServico.TiposServico = new List<SolicitacaoTipoServico>();
+                int id = int.Parse(tipoServicoId);
+                TipoServico tipoServico = _context.TipoServico.FirstOrDefault(t => t.Id == id);
+                solicitacaoServicoRequest.TiposServico = new List<SolicitacaoTipoServico>();
+                SolicitacaoTipoServico solicitacaoTipoServico = new SolicitacaoTipoServico();
+                solicitacaoTipoServico.TipoServico = tipoServico;
+                solicitacaoTipoServico.SolicitacaoServico = solicitacaoServicoRequest;
+                solicitacaoServicoRequest.TiposServico.Add(solicitacaoTipoServico);
             }
 
             if (ModelState.IsValid)
             {
-                _context.Add(solicitacaoServico);
+                _context.Add(solicitacaoServicoRequest);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Cpf", solicitacaoServico.UsuarioId);
-            return View(solicitacaoServico);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Cpf", solicitacaoServicoRequest.UsuarioId);
+            return View(solicitacaoServicoRequest);
         }
 
         // GET: SolicitacaoServico/Edit/5

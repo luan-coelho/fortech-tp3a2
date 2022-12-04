@@ -24,13 +24,10 @@
                 <form asp-action="VerificarLogin">
 
                     <h3>Acesso a plataforma</h3>
-
-                    @if (Html.ValidationMessage("Validacao") == null)
-                    {
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Validação falhou!</strong> @Html.ValidationMessage("Validacao")
-                        </div>
-                    }
+                    
+                    <div class="alert alert-danger" role="alert">
+                        <strong>@ViewData["Message"]</strong>
+                    </div>
 
                     <div class="form-outline mb-4">
                         <input type="email" id="login" name="email" class="form-control form-control-lg"

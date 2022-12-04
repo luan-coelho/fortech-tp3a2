@@ -27,7 +27,7 @@ public class AuthController : Controller
             return RedirectToAction("Index", "Dashboard");
         }
 
-        ModelState.AddModelError("Validacao", "Usuário ou senha inválidos.");
+        ViewData["Message"] = "Usuário ou senha inválidos";
 
         return RedirectToAction("Login", "Auth");
     }
@@ -39,7 +39,8 @@ public class AuthController : Controller
 
     [HttpPost]
     public async Task<IActionResult> Cadastro(
-        [Bind("Id,Nome,Email,Senha,Cpf,Rg,DataNascimento,Admin,Ativo")] Usuario usuario)
+        [Bind("Id,Nome,Email,Senha,Cpf,Rg,DataNascimento,Admin,Ativo")]
+        Usuario usuario)
     {
         usuario.Ativo = true;
 
