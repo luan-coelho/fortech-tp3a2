@@ -106,6 +106,46 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/SolicitacaoServico/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29saWNpdGFjYW9TZXJ2aWNvXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/SolicitacaoServico/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29saWNpdGFjYW9TZXJ2aWNvXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/SolicitacaoServico/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29saWNpdGFjYW9TZXJ2aWNvXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/SolicitacaoServico/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29saWNpdGFjYW9TZXJ2aWNvXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/SolicitacaoServico/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29saWNpdGFjYW9TZXJ2aWNvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/TipoServico/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1NlcnZpY29cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/TipoServico/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1NlcnZpY29cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/TipoServico/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1NlcnZpY29cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/TipoServico/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1NlcnZpY29cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/TipoServico/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGlwb1NlcnZpY29cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Luan/Development/Workspace Study/FortechTP3A2/FortechTP3A2/Views/Usuario/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

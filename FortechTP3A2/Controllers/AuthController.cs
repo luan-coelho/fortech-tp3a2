@@ -31,24 +31,23 @@ public class AuthController : Controller
 
         return RedirectToAction("Login", "Auth");
     }
-    
+
     public IActionResult Cadastro()
     {
         return View();
     }
 
-    public IActionResult Cadastrar([Bind("Id,Nome,Email,Senha,Cpf,Rg,DataNascimento,Admin,Ativo")] Usuario usuario)
+    [HttpPost]
+    public async Task<IActionResult> Cadastro(
+        [Bind("Id,Nome,Email,Senha,Cpf,Rg,DataNascimento,Admin,Ativo")] Usuario usuario)
     {
-        if (ModelState.IsValid)
-        {
-            _context.Add(usuario);
-            _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Dashboard");
-        }
+        usuario.Ativo = true;
 
-        ModelState.AddModelError("Validacao", "Verifique os campos obrigatórios");
+        if (!ModelState.IsValid) return View(usuario);
 
-        return RedirectToAction("Cadastro", "Auth");
+        _context.Add(usuario);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Login));
     }
 
     private Usuario VerificarCrendenciais(string email, string senha)

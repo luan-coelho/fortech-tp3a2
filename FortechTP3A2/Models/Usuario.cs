@@ -17,25 +17,27 @@ namespace FortechTP3A2.Models
         [MinLength(0)]
         [EmailAddress(ErrorMessage = "Informe um email válido")]
         public string Email { get; set; }
-        
+
         [DisplayName("CPF")]
         [Required(ErrorMessage = "Informe o CPF")]
         [MaxLength(14, ErrorMessage = "Informe no máximo 14 caracteres")]
         [MinLength(0)]
         public string Cpf { get; set; }
-        
+
         [MaxLength(255, ErrorMessage = "Informe no máximo 20 caracteres")]
         [MinLength(0)]
         public string? Rg { get; set; }
+
+        [Required(ErrorMessage = "Informe a senha")]
         public string Senha { get; set; }
 
         [DisplayName("Data de Nascimento")]
         [Required(ErrorMessage = "Informe a data de nascimento")]
         public DateTime DataNascimento { get; set; }
 
-        public IList<Endereco> Enderecos { get; set; }
+        public IList<Endereco>? Enderecos { get; set; }
 
-        public IList<SolicitacaoServico> Solicitacoes { get; set; }
+        public IList<SolicitacaoServico>? Solicitacoes { get; set; }
 
         public bool Admin { get; set; }
 

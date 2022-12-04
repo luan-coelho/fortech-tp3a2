@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FortechTP3A2.Data;
 using FortechTP3A2.Models;
+using Microsoft.Win32;
 
 namespace FortechTP3A2.Controllers
 {
@@ -52,19 +49,21 @@ namespace FortechTP3A2.Controllers
             return View();
         }
 
-        // POST: Modelo/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Descricao,MarcaId")] Modelo modelo)
         {
-            if (ModelState.IsValid)
+            Marca marca = _context.Marca.FirstOrDefault(m => m.Id == modelo.MarcaId);
+
+            modelo.Marca = marca;
+
+            if (modelo.Marca != null)
             {
                 _context.Add(modelo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["MarcaId"] = new SelectList(_context.Marca, "Id", "Descricao", modelo.MarcaId);
             return View(modelo);
         }
@@ -82,6 +81,7 @@ namespace FortechTP3A2.Controllers
             {
                 return NotFound();
             }
+
             ViewData["MarcaId"] = new SelectList(_context.Marca, "Id", "Descricao", modelo.MarcaId);
             return View(modelo);
         }
@@ -116,8 +116,10 @@ namespace FortechTP3A2.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["MarcaId"] = new SelectList(_context.Marca, "Id", "Descricao", modelo.MarcaId);
             return View(modelo);
         }
@@ -150,19 +152,20 @@ namespace FortechTP3A2.Controllers
             {
                 return Problem("Entity set 'FortechContext.Modelo'  is null.");
             }
+
             var modelo = await _context.Modelo.FindAsync(id);
             if (modelo != null)
             {
                 _context.Modelo.Remove(modelo);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ModeloExists(int id)
         {
-          return _context.Modelo.Any(e => e.Id == id);
+            return _context.Modelo.Any(e => e.Id == id);
         }
     }
 }
