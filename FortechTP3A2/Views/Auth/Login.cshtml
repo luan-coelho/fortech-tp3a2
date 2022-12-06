@@ -25,13 +25,16 @@
 
                         <h3>Acesso a plataforma</h3>
 
-                        <div class="alert alert-danger" role="alert">
-                            <strong>
-                                <span>
-                                    @Html.ValidationMessage("Message")
-                                </span>
-                            </strong>
-                        </div>
+                        @if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <strong>
+                                    <span>
+                                        @ViewBag.Message
+                                    </span>
+                                </strong>
+                            </div>
+                        }
 
                         <div class="form-outline mb-4">
                             <input type="email" id="login" name="email" class="form-control form-control-lg"

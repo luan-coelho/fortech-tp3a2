@@ -22,19 +22,28 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\style.css" />
+    <None Remove="Views\Home\**" />
     <None Remove="Views\Shared\css\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Home\**" />
     <Compile Remove="Views\Shared\css\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Views\Home\**" />
     <EmbeddedResource Remove="Views\Shared\css\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Home\**" />
     <Content Remove="Views\Shared\css\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\HomeController.cs" />
+    <Compile Remove="Models\Class.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -56,6 +56,7 @@ namespace FortechTP3A2.Controllers
             Marca marca = _context.Marca.FirstOrDefault(m => m.Id == modelo.MarcaId);
 
             modelo.Marca = marca;
+            modelo.MarcaId = marca.Id;
 
             if (modelo.Marca != null)
             {

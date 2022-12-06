@@ -19,14 +19,16 @@ namespace FortechTP3A2.Models
 
         [DisplayName("Eletrônico")]
         [Required(ErrorMessage = "Informe um eletrônico")]
-        public IList<Eletronico> Eletronicos { get; set; }
+        public IList<Eletronico> Eletronicos { get; set; } = new List<Eletronico>();
 
         [DisplayName("Tipo de Serviço")]
         [Required(ErrorMessage = "Informe o tipo de serviço")]
-        public IList<SolicitacaoTipoServico> TiposServico { get; set; }
+        public IList<SolicitacaoTipoServico> TiposServico { get; set; } = new List<SolicitacaoTipoServico>();
 
         [DisplayName("Usuário")]
         public int? UsuarioId { get; set; }
+
+        public string? Status { get; set; } = "EM ANDAMENTO";
 
         public Usuario Usuario { get; set; }
     }

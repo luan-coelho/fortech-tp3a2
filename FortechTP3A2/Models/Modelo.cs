@@ -12,7 +12,9 @@ namespace FortechTP3A2.Models
         [MinLength(0)]
         public string Descricao { get; set; }
         [DisplayName("Marca")]
+        [Required(ErrorMessage = "Informe a marca")]
         public int MarcaId { get; set; }
+        [Required(ErrorMessage = "Informe a marca")]
         public Marca Marca { get; set; }
     }
 }

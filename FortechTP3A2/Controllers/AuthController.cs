@@ -32,9 +32,9 @@ public class AuthController : Controller
             return RedirectToAction("Index", "Dashboard");
         }
 
-        ModelState.AddModelError("Message", "Usuário ou senha inválidos");
+        ViewBag.Message = "Usuário ou senha ínválidos";
 
-        return RedirectToAction("Login", "Auth");
+        return View("Login");
     }
 
     public IActionResult Cadastro()

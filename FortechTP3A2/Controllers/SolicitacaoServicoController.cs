@@ -24,7 +24,8 @@ namespace FortechTP3A2.Controllers
         // GET: SolicitacaoServico
         public async Task<IActionResult> Index()
         {
-            var fortechContext = _context.SolicitacaoServico.Include(s => s.Usuario);
+            var fortechContext = _context.SolicitacaoServico.Include(s => s.Usuario)
+                .Include(s => s.Eletronicos).Include(m => m.TiposServico).ThenInclude(t => t.TipoServico);
             return View(await fortechContext.ToListAsync());
         }
 
@@ -62,21 +63,36 @@ namespace FortechTP3A2.Controllers
             [Bind("Id,Nome,Detalhes,Valor,UsuarioId,TiposServico")]
             SolicitacaoServico solicitacaoServicoRequest)
         {
+            Usuario usuario = _context.Usuario.FirstOrDefault(u => u.Id == solicitacaoServicoRequest.UsuarioId);
+
             StringValues listaIdTipoServico = Request.Form["TiposServico"];
+            StringValues listaIdEletronicos = Request.Form["Eletronicos"];
+
+            solicitacaoServicoRequest.Usuario = usuario;
 
             foreach (var tipoServicoId in listaIdTipoServico)
             {
                 int id = int.Parse(tipoServicoId);
                 TipoServico tipoServico = _context.TipoServico.FirstOrDefault(t => t.Id == id);
-                solicitacaoServicoRequest.TiposServico = new List<SolicitacaoTipoServico>();
                 SolicitacaoTipoServico solicitacaoTipoServico = new SolicitacaoTipoServico();
                 solicitacaoTipoServico.TipoServico = tipoServico;
+                solicitacaoTipoServico.TipoServicoId = id;
                 solicitacaoTipoServico.SolicitacaoServico = solicitacaoServicoRequest;
                 solicitacaoServicoRequest.TiposServico.Add(solicitacaoTipoServico);
+                usuario.Solicitacoes.Add(solicitacaoServicoRequest);
             }
 
-            if (ModelState.IsValid)
+            foreach (var eletronicoId in listaIdEletronicos)
             {
+                int id = int.Parse(eletronicoId);
+                Eletronico eletronico = _context.Eletronico.FirstOrDefault(e => e.Id == id);
+                solicitacaoServicoRequest.Eletronicos.Add(eletronico);
+            }
+
+
+            if (solicitacaoServicoRequest != null)
+            {
+                solicitacaoServicoRequest.Status = "EM ANDAMENTO";
                 _context.Add(solicitacaoServicoRequest);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -100,7 +116,10 @@ namespace FortechTP3A2.Controllers
                 return NotFound();
             }
 
-            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Cpf", solicitacaoServico.UsuarioId);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Nome");
+            ViewData["Eletronicos"] = new SelectList(_context.Eletronico, "Id", "Nome");
+            ViewData["TiposServico"] = new SelectList(_context.TipoServico, "Id", "Descricao");
+
             return View(solicitacaoServico);
         }
 
@@ -118,16 +137,53 @@ namespace FortechTP3A2.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            SolicitacaoServico solicitacaoServicoBanco = _context.SolicitacaoServico.Include(t => t.TiposServico).
+            FirstOrDefault(u => u.Id == id);
+
+            solicitacaoServicoBanco.TiposServico.Clear();
+
+            solicitacaoServicoBanco.Nome = solicitacaoServico.Nome;
+            solicitacaoServicoBanco.Valor = solicitacaoServico.Valor;
+            solicitacaoServicoBanco.Detalhes = solicitacaoServico.Detalhes;
+
+            Usuario usuario = _context.Usuario.FirstOrDefault(u => u.Id == solicitacaoServico.UsuarioId);
+
+            StringValues listaIdTipoServico = Request.Form["TiposServico"];
+            StringValues listaIdEletronicos = Request.Form["Eletronicos"];
+
+            foreach (var tipoServicoId in listaIdTipoServico)
+            {
+                id = int.Parse(tipoServicoId);
+                TipoServico tipoServico = _context.TipoServico.FirstOrDefault(t => t.Id == id);
+                SolicitacaoTipoServico stc = new SolicitacaoTipoServico();
+                stc.TipoServico = tipoServico;
+                stc.TipoServicoId = id;
+                stc.SolicitacaoServico = solicitacaoServicoBanco;
+                solicitacaoServicoBanco.TiposServico.Add(stc);
+                solicitacaoServicoBanco.Usuario = usuario;
+            }
+
+            usuario.Solicitacoes.Add(solicitacaoServicoBanco);
+
+
+            foreach (var eletronicoId in listaIdEletronicos)
+            {
+                id = int.Parse(eletronicoId);
+                Eletronico eletronico = _context.Eletronico.FirstOrDefault(e => e.Id == id);
+                solicitacaoServicoBanco.Eletronicos.Add(eletronico);
+            }
+
+            if (solicitacaoServicoBanco != null)
             {
                 try
                 {
-                    _context.Update(solicitacaoServico);
+                    _context.Update(solicitacaoServicoBanco);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SolicitacaoServicoExists(solicitacaoServico.Id))
+                    if (!SolicitacaoServicoExists(solicitacaoServicoBanco.Id))
                     {
                         return NotFound();
                     }
@@ -140,8 +196,8 @@ namespace FortechTP3A2.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Cpf", solicitacaoServico.UsuarioId);
-            return View(solicitacaoServico);
+            ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Nome", solicitacaoServicoBanco.UsuarioId);
+            return View(solicitacaoServicoBanco);
         }
 
         // GET: SolicitacaoServico/Delete/5

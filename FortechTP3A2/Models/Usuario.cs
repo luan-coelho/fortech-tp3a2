@@ -31,13 +31,13 @@ namespace FortechTP3A2.Models
         [Required(ErrorMessage = "Informe a senha")]
         public string Senha { get; set; }
 
-        [DisplayName("Data de Nascimento")]
         [Required(ErrorMessage = "Informe a data de nascimento")]
+        [DisplayName("Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
 
         public IList<Endereco>? Enderecos { get; set; }
 
-        public IList<SolicitacaoServico>? Solicitacoes { get; set; }
+        public IList<SolicitacaoServico>? Solicitacoes { get; set; } = new List<SolicitacaoServico>();
 
         public bool Admin { get; set; }
 

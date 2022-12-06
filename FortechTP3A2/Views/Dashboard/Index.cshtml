@@ -1,9 +1,76 @@
-﻿@model dynamic
+﻿@model IEnumerable<FortechTP3A2.Models.SolicitacaoServico>
 
 @{
     ViewBag.Title = "Dashboard";
     Layout = "_Layout";
 }
- 
-<h2>Dashboard</h2>
+
+<h3>Suas solicitações de serviço</h3>
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Detalhes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Eletronicos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TiposServico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Detalhes)
+                </td>
+                <td>
+                    R$@Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    <ul class="list-group">
+                        @foreach (var eletronico in item.Eletronicos)
+                        {
+
+                            <li class="list-group-item" item-checked='false' item-expanded='false'>
+                                @eletronico.Nome
+                            </li>
+
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-group">
+                        @foreach (var tipoServico in item.TiposServico)
+                        {
+                            <li class="list-group-item" item-checked='false' item-expanded='false'>
+                                @tipoServico.TipoServico.Descricao
+                            </li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <span class="badge badge-success">@Html.DisplayFor(modelItem => item.Status)</span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
