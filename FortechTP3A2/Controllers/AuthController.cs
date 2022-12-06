@@ -9,7 +9,7 @@ namespace FortechTP3A2.Controllers;
 public class AuthController : Controller
 {
     private readonly FortechContext _context;
- 
+
 
     public AuthController(FortechContext context)
     {
@@ -49,7 +49,34 @@ public class AuthController : Controller
     {
         usuario.Ativo = true;
 
-        if (!ModelState.IsValid) return View(usuario);
+        Usuario cpf = _context.Usuario.FirstOrDefault(u => u.Cpf == usuario.Cpf);
+
+        if (cpf != null)
+        {
+            ViewBag.Message = "Já existe um usuário cadastrado com o CPF informado";
+            return View(usuario);
+        }
+
+        Usuario email = _context.Usuario.FirstOrDefault(u => u.Cpf == usuario.Email);
+
+        if (email != null)
+        {
+            ViewBag.Message = "Já existe um usuário cadastrado com o email informado";
+            return View(usuario);
+        }
+
+        string confirmarSenha = Request.Form["confirmarSenha"];
+
+        if (usuario.Senha != confirmarSenha)
+        {
+            ViewBag.Message = "As senhas não coincidem";
+            return View(usuario);
+        }
+
+        if (!ModelState.IsValid)
+        {
+            return View(usuario);
+        }
 
         _context.Add(usuario);
         await _context.SaveChangesAsync();

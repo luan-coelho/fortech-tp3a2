@@ -25,6 +25,18 @@
                         <div class="card-body p-4 p-md-5">
                             <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Cadastro</h3>
                             <form asp-action="Cadastro">
+
+                                @if (ViewBag.Message != null)
+                                {
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>
+                                            <span>
+                                                @ViewBag.Message
+                                            </span>
+                                        </strong>
+                                    </div>
+                                }
+
                                 <div class="row">
                                     <div class="col-md-6 mb-4">
                                         <div class="form-group">
