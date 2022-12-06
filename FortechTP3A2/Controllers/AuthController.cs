@@ -3,6 +3,7 @@ using FortechTP3A2.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using FortechTP3A2.Utils;
 
 namespace FortechTP3A2.Controllers;
 
@@ -23,17 +24,28 @@ public class AuthController : Controller
 
     public IActionResult VerificarLogin(string email, string senha)
     {
+        if (String.IsNullOrEmpty(email) && String.IsNullOrEmpty(senha))
+        {
+            ViewBag.Message = "Informe o email e senha";
+            return View("Login");
+        }
+        
         Usuario usuario = VerificarCrendenciais(email, senha);
 
         if (usuario != null)
         {
+            if (!usuario.Ativo)
+            {
+                ViewBag.Message = "Acesso desativado";
+                return View("Login");
+            }
             HttpContext.Session.SetInt32("id_usuario", usuario.Id);
             HttpContext.Session.SetString("nome_usuario", usuario.Nome);
+            ContextoGlobal._usuario = usuario;
             return RedirectToAction("Index", "Dashboard");
         }
 
         ViewBag.Message = "Usuário ou senha ínválidos";
-
         return View("Login");
     }
 
@@ -44,7 +56,7 @@ public class AuthController : Controller
 
     [HttpPost]
     public async Task<IActionResult> Cadastro(
-        [Bind("Id,Nome,Email,Senha,Cpf,Rg,DataNascimento,Admin,Ativo")]
+        [Bind("Id,Nome,Email,Senha,Cpf,Telefone,Rg,DataNascimento,Admin,Ativo")]
         Usuario usuario)
     {
         usuario.Ativo = true;
@@ -67,7 +79,7 @@ public class AuthController : Controller
 
         string confirmarSenha = Request.Form["confirmarSenha"];
 
-        if (usuario.Senha != confirmarSenha)
+        if (!String.IsNullOrEmpty(usuario.Senha) && usuario.Senha != confirmarSenha)
         {
             ViewBag.Message = "As senhas não coincidem";
             return View(usuario);
@@ -87,6 +99,7 @@ public class AuthController : Controller
     {
         HttpContext.Session.Remove("id_usuario");
         HttpContext.Session.Remove("nome_usuario");
+        ContextoGlobal._usuario = null;
 
         return RedirectToAction("Login", "Auth");
     }

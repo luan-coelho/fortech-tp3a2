@@ -34,6 +34,9 @@ namespace FortechTP3A2.Models
         [Required(ErrorMessage = "Informe a data de nascimento")]
         [DisplayName("Data de Nascimento")]
         public DateTime DataNascimento { get; set; }
+        
+        [DisplayName("Telefone")]
+        public string? Telefone { get; set; }
 
         public IList<Endereco>? Enderecos { get; set; }
 

@@ -1,12 +1,15 @@
 ﻿@model dynamic
 
 @{
-    ViewBag.Title = "Outros serviços";
+    ViewBag.Title = "Serviços disponiveis";
     Layout = "_Layout";
 }
 
-<h3>Serviços disponiveis</h3>
+<h2>Serviços disponiveis</h2>
 
-
-</table>
-
+<div class="list-group mt-2">
+    <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Usuario" asp-action="Index">Gerencia de Usuários</a>
+    <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Marca" asp-action="Index">Gerencia de Marcas</a>
+    <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Modelo" asp-action="Index">Gerencia de Modelos</a>
+    <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Eletronico" asp-action="Index">Gerencia de Eletrônicos</a>
+</div>

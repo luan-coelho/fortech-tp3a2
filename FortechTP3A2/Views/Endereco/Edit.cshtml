@@ -4,64 +4,59 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h3>Editar Endereço</h3>
 
-<h4>Endereco</h4>
 <hr />
-<div class="row">
+
+<div class="row container row d-flex justify-content-center w-100">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="id" />
             <div class="form-group">
                 <label asp-for="cep" class="control-label"></label>
-                <input asp-for="cep" class="form-control" />
+                <input asp-for="cep" name="cep" class="form-control" onblur="buscarEndereco()"/>
                 <span asp-validation-for="cep" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="rua" class="control-label"></label>
-                <input asp-for="rua" class="form-control" />
+                <input asp-for="rua" name="rua" class="form-control"/>
                 <span asp-validation-for="rua" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="numero" class="control-label"></label>
-                <input asp-for="numero" class="form-control" />
+                <input asp-for="numero" name="numero" class="form-control"/>
                 <span asp-validation-for="numero" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="bairro" class="control-label"></label>
-                <input asp-for="bairro" class="form-control" />
+                <input asp-for="bairro" name="bairro" class="form-control"/>
                 <span asp-validation-for="bairro" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="complemento" class="control-label"></label>
-                <input asp-for="complemento" class="form-control" />
+                <input asp-for="complemento" class="form-control"/>
                 <span asp-validation-for="complemento" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="cidade" class="control-label"></label>
-                <input asp-for="cidade" class="form-control" />
+                <input asp-for="cidade" name="cidade" class="form-control"/>
                 <span asp-validation-for="cidade" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="estado" class="control-label"></label>
-                <input asp-for="estado" class="form-control" />
+                <input asp-for="estado" name="estado" class="form-control"/>
                 <span asp-validation-for="estado" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group d-none">
                 <label asp-for="UsuarioId" class="control-label"></label>
                 <select asp-for="UsuarioId" class="form-control" asp-items="ViewBag.UsuarioId"></select>
-                <span asp-validation-for="UsuarioId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mt-2">
+                <a class="btn btn-secondary" asp-action="Index">Voltar para a listagem</a>
+                <input type="submit" value="Salvar" class="btn btn-success"/>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

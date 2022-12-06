@@ -20,9 +20,14 @@ namespace FortechTP3A2.Controllers
         }
 
         // GET: Endereco
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var fortechContext = _context.Endereco.Include(e => e.Usuario);
+            if (id == null || _context.Endereco == null)
+            {
+                return NotFound();
+            }
+
+            var fortechContext = _context.Endereco.Include(e => e.Usuario).Where(e => e.UsuarioId == id);
             return View(await fortechContext.ToListAsync());
         }
 
@@ -52,24 +57,26 @@ namespace FortechTP3A2.Controllers
             return View();
         }
 
-        // POST: Endereco/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,cep,rua,numero,bairro,complemento,cidade,estado,UsuarioId")] Endereco endereco)
+        public async Task<IActionResult> Create(
+            [Bind("id,cep,rua,numero,bairro,complemento,cidade,estado,UsuarioId")]
+            Endereco endereco)
         {
-            if (ModelState.IsValid)
+            Usuario usuario = _context.Usuario.FirstOrDefault(u => u.Id == endereco.UsuarioId);
+
+            if (usuario != null)
             {
+                endereco.Usuario = usuario;
                 _context.Add(endereco);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Redirect("/Endereco/Index/" + endereco.UsuarioId);
             }
+
             ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Id", endereco.UsuarioId);
             return View(endereco);
         }
 
-        // GET: Endereco/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Endereco == null)
@@ -82,6 +89,7 @@ namespace FortechTP3A2.Controllers
             {
                 return NotFound();
             }
+
             ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Id", endereco.UsuarioId);
             return View(endereco);
         }
@@ -91,33 +99,29 @@ namespace FortechTP3A2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,cep,rua,numero,bairro,complemento,cidade,estado,UsuarioId")] Endereco endereco)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("id,cep,rua,numero,bairro,complemento,cidade,estado,UsuarioId")]
+            Endereco endereco)
         {
             if (id != endereco.id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            try
             {
-                try
-                {
-                    _context.Update(endereco);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!EnderecoExists(endereco.id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                _context.Update(endereco);
+                await _context.SaveChangesAsync();
+                return Redirect("/Endereco/Index/" + endereco.UsuarioId);
             }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EnderecoExists(endereco.id))
+                {
+                    return NotFound();
+                }
+            }
+
             ViewData["UsuarioId"] = new SelectList(_context.Usuario, "Id", "Id", endereco.UsuarioId);
             return View(endereco);
         }
@@ -150,19 +154,20 @@ namespace FortechTP3A2.Controllers
             {
                 return Problem("Entity set 'FortechContext.Endereco'  is null.");
             }
+
             var endereco = await _context.Endereco.FindAsync(id);
             if (endereco != null)
             {
                 _context.Endereco.Remove(endereco);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EnderecoExists(int id)
         {
-          return _context.Endereco.Any(e => e.id == id);
+            return _context.Endereco.Any(e => e.id == id);
         }
     }
 }

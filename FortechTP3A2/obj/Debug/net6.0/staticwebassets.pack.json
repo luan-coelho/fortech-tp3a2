@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Luan\\Development\\Workspace Study\\FortechTP3A2\\FortechTP3A2\\wwwroot\\images\\acesso-negado.gif",
+      "PackagePath": "staticwebassets\\images\\acesso-negado.gif"
+    },
+    {
       "Id": "C:\\Users\\Luan\\Development\\Workspace Study\\FortechTP3A2\\FortechTP3A2\\wwwroot\\images\\logo.png",
       "PackagePath": "staticwebassets\\images\\logo.png"
     },

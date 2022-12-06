@@ -137,8 +137,8 @@ namespace FortechTP3A2.Controllers
                 return NotFound();
             }
 
-            SolicitacaoServico solicitacaoServicoBanco = _context.SolicitacaoServico.Include(t => t.TiposServico).
-            FirstOrDefault(u => u.Id == id);
+            SolicitacaoServico solicitacaoServicoBanco =
+                _context.SolicitacaoServico.Include(t => t.TiposServico).FirstOrDefault(u => u.Id == id);
 
             solicitacaoServicoBanco.TiposServico.Clear();
 
@@ -237,6 +237,27 @@ namespace FortechTP3A2.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Finalizar(int? id)
+        {
+            if (id == null || _context.SolicitacaoServico == null)
+            {
+                return NotFound();
+            }
+
+            var solicitacaoServico = await _context.SolicitacaoServico
+                .Include(s => s.Usuario)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            
+            if (solicitacaoServico != null)
+            {
+                solicitacaoServico.Status = "FINALIZADA";
+                _context.Update(solicitacaoServico);
+                await _context.SaveChangesAsync();
+            }
+            
+            return Redirect("/SolicitacaoServico/Index");
         }
 
         private bool SolicitacaoServicoExists(int id)

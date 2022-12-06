@@ -5,72 +5,84 @@
     Layout = "_Layout";
 }
 
-<h3>Suas solicitações de serviço</h3>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<table class="table mt-4">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Detalhes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Eletronicos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TiposServico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (ViewBag.TamanhoLista > 0)
+{
+    <h3>Suas solicitações de serviço</h3>
+
+    <table class="table mt-4">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nome)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Detalhes)
-                </td>
-                <td>
-                    R$@Html.DisplayFor(modelItem => item.Valor)
-                </td>
-                <td>
-                    <ul class="list-group">
-                        @foreach (var eletronico in item.Eletronicos)
-                        {
-
-                            <li class="list-group-item" item-checked='false' item-expanded='false'>
-                                @eletronico.Nome
-                            </li>
-
-                        }
-                    </ul>
-                </td>
-                <td>
-                    <ul class="list-group">
-                        @foreach (var tipoServico in item.TiposServico)
-                        {
-                            <li class="list-group-item" item-checked='false' item-expanded='false'>
-                                @tipoServico.TipoServico.Descricao
-                            </li>
-                        }
-                    </ul>
-                </td>
-                <td>
-                    <span class="badge badge-success">@Html.DisplayFor(modelItem => item.Status)</span>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Detalhes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Valor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Eletronicos)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TiposServico)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Detalhes)
+                    </td>
+                    <td>
+                        R$@Html.DisplayFor(modelItem => item.Valor)
+                    </td>
+                    <td>
+                        <ul class="list-group">
+                            @foreach (var eletronico in item.Eletronicos)
+                            {
+
+                                <li class="list-group-item" item-checked='false' item-expanded='false'>
+                                    @eletronico.Nome
+                                </li>
+
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-group">
+                            @foreach (var tipoServico in item.TiposServico)
+                            {
+                                <li class="list-group-item" item-checked='false' item-expanded='false'>
+                                    @tipoServico.TipoServico.Descricao
+                                </li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        <span class="badge badge-success">@Html.DisplayFor(modelItem => item.Status)</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="mt-5">
+        <p class="text-center">Entre em contato com um de nossos atendentes agora mesmo e faça seu orçamento!</p>
+        <p class="text-center"><strong>Fone (63) 992651081</strong></p>
+    </div>
+}
 

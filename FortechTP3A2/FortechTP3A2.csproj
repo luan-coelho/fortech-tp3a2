@@ -47,15 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Dashboard\servicos.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="Pages\Dashboard\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages" />
   </ItemGroup>
 
   <ItemGroup>

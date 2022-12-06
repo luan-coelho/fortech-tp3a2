@@ -22,6 +22,18 @@ public class DashboardController : Controller
 
         List<SolicitacaoServico> solicitacaos = _context.SolicitacaoServico.Select(s => s).Where(s => s.UsuarioId == idUsuario).Include(s => s.TiposServico).ThenInclude(t => t.TipoServico).Include(s => s.Eletronicos).ToList();
 
+        ViewBag.TamanhoLista = solicitacaos.Count();
+
         return View(solicitacaos);
+    }
+
+    public IActionResult Servicos()
+    {
+        return View();
+    }
+    
+    public IActionResult AcessoNegado()
+    {
+        return View();
     }
 }
