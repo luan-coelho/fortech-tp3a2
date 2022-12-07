@@ -1,0 +1,36 @@
+﻿@model IEnumerable<FortechTP3A2.Models.HistoricoServico>
+
+@{
+    ViewData["Title"] = "Histórico de Solicitações";
+}
+
+<h3>Histórico de Solicitações finalizadas</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SolicitacaoServico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SolicitacaoServico.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Detalhes</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

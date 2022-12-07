@@ -1,0 +1,87 @@
+@startuml
+
+title @Author: Luan Coêlho, Fortech - Sistema de gestão de Manutenção de eletrônicos
+
+class Pessoa {
+    - id: int
+    - nome: string
+    - email: string
+    - senha: string
+    - horarioAcesso: DateTime
+    - horarioSaida: DateTime
+    - admin: bool
+    - ativo: bool
+}
+
+class PessoaFisica {
+    - id: int
+    - cpf: string
+    - rg: string
+    - dataNascimento: DateTime
+}
+
+class PessoaJuridica {
+    - id: int
+    - cnpj: string
+}
+
+class Endereco {
+    - id: int
+    - cep: string
+    - rua: string
+    - numero: string
+    - bairro: string
+    - complemento: string
+    - cidade: string
+    - estado: string
+}
+
+class SolicitacaoServico {
+    - id: int
+    - nome: string
+    - detalhes: string
+    - valor: decimal
+}
+
+class HistoricoServico {
+    - id: int
+    - descricao: string
+}
+
+class TipoServico {
+    id: int
+    nome: string
+}
+
+class Eletronico {
+    - id: int
+    - nome: string
+    - numeroNotaFiscal: string
+    - dataFabricao: DateTime
+    - observacoes: string
+}
+
+class Marca {
+    - id: Long
+    - descricao: String
+}
+
+class Modelo {
+    - id: Long
+    - descricao: String
+}
+
+Pessoa "1" *-down-> "*" Endereco
+Pessoa "1" *-> "*" SolicitacaoServico
+Pessoa <|-- PessoaFisica
+Pessoa <|-- PessoaJuridica
+
+SolicitacaoServico "*" --> "*" TipoServico
+SolicitacaoServico "1" *-> "*" Eletronico
+
+Modelo "*" --> "1" Marca
+Eletronico "*" --> "1" Modelo
+
+HistoricoServico "1" --> "1" SolicitacaoServico
+
+@enduml

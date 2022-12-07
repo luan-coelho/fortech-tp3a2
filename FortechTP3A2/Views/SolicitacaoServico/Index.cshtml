@@ -83,8 +83,40 @@
                 <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id">Deletar</a>
                 @if (item.Status != null && !item.Status.Equals("FINALIZADA"))
                 {
-                    <a asp-action="Finalizar" class="btn btn-dark" asp-route-id="@item.Id">Finalizar Serviço</a>
+                    <div class="modal fade mt-2" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Finalizar Solicitação</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <form asp-controller="SolicitacaoServico" asp-action="Finalizar">
+
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="Descricao" class="control-label">Descrição</label>
+                                            <textarea  id="Descricao" rows="4" name="Descricao" asp-route-id="@item.Id" class="form-control" required></textarea>
+                                            <span class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <input name="Id" value="@item.Id" class="d-none"/>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-dark">Finalizar Solicitação</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">
+                        Finalizar
+                    </button>
                 }
+
             </td>
         </tr>
     }

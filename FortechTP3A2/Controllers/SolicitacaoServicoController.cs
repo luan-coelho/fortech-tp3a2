@@ -79,8 +79,9 @@ namespace FortechTP3A2.Controllers
                 solicitacaoTipoServico.TipoServicoId = id;
                 solicitacaoTipoServico.SolicitacaoServico = solicitacaoServicoRequest;
                 solicitacaoServicoRequest.TiposServico.Add(solicitacaoTipoServico);
-                usuario.Solicitacoes.Add(solicitacaoServicoRequest);
             }
+
+            usuario.Solicitacoes.Add(solicitacaoServicoRequest);
 
             foreach (var eletronicoId in listaIdEletronicos)
             {
@@ -239,7 +240,7 @@ namespace FortechTP3A2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Finalizar(int? id)
+        public async Task<IActionResult> Finalizar(int? id, string? Descricao)
         {
             if (id == null || _context.SolicitacaoServico == null)
             {
@@ -249,14 +250,23 @@ namespace FortechTP3A2.Controllers
             var solicitacaoServico = await _context.SolicitacaoServico
                 .Include(s => s.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            
+
             if (solicitacaoServico != null)
             {
                 solicitacaoServico.Status = "FINALIZADA";
                 _context.Update(solicitacaoServico);
+                
+                HistoricoServico historicoServico = new HistoricoServico
+                {
+                    SolicitacaoServico = solicitacaoServico,
+                    SolicitacaoServicoId = solicitacaoServico.Id,
+                    Descricao = Descricao
+                };
+                
+                _context.Add(historicoServico);
                 await _context.SaveChangesAsync();
             }
-            
+
             return Redirect("/SolicitacaoServico/Index");
         }
 
